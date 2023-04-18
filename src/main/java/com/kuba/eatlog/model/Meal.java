@@ -18,10 +18,11 @@ public class Meal{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     private String title;
 
     private LocalTime time;
+
+    private LocalDate date;
 
     @OneToOne(
             mappedBy = "meal",
@@ -32,7 +33,7 @@ public class Meal{
     private MealDetails details;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "day_of_eating_id")
-    private DayOfEating day;
+    @JoinColumn(name = "user_id")
+    private User user;
 
 }

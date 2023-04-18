@@ -6,8 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 @Entity
 @Data
@@ -37,5 +35,5 @@ public class User {
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL
     )
-    private Set<DayOfEating> days;
+    private List<Meal> meals;
 }
