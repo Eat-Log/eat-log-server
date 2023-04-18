@@ -1,28 +1,40 @@
 package com.kuba.eatlog.model;
 
 import jakarta.persistence.*;
-import jdk.jfr.Name;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Meal {
+@Table(name = "meal")
+public class Meal{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Name("meal_id")
     private Long id;
 
-    @Name("meal_title")
+
     private String title;
 
-    @OneToOne
-    @Name("meal_description")
-    private Description description;
+    private LocalDate date;
+
+    private LocalTime time;
+
+    @OneToOne(
+            mappedBy = "meal",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+    @JoinColumn(name = "meal_details_id")
+    private MealDetails details;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
 }
