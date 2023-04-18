@@ -29,4 +29,27 @@ public class MealService {
                                 () -> new ResourceNotFoundException("Meal not found in database!")
                         );
     }
+
+    public Object updateMealById(Long id, Meal meal){
+        return existsById(id) ? updateMeal(meal) : throwException();
+    }
+
+    private boolean existsById(Long id){
+        return repository.existsById(id);
+    }
+
+    private Meal updateMeal(Meal meal){
+         return Meal.builder()
+                 .id(meal.getId())
+                 .title(meal.getTitle())
+                 .time(meal.getTime())
+                 .date(meal.getDate())
+                 .details(meal.getDetails())
+                 .user(meal.getUser())
+                 .build();
+    }
+
+    private Throwable throwException(){
+        return new ResourceNotFoundException("Meal not found in database!");
+    }
 }

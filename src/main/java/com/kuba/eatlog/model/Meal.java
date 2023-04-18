@@ -2,10 +2,12 @@ package com.kuba.eatlog.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -13,6 +15,7 @@ import java.time.LocalTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Table(name = "meal")
 public class Meal{
     @Id
@@ -24,6 +27,7 @@ public class Meal{
 
     @NotEmpty(message = "Time cannot be empty")
     private LocalTime time;
+
 
     private LocalDate date;
 
