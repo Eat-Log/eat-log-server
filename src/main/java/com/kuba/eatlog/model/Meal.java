@@ -21,8 +21,6 @@ public class Meal{
 
     private String title;
 
-    private LocalDate date;
-
     private LocalTime time;
 
     @OneToOne(
@@ -33,8 +31,8 @@ public class Meal{
     @JoinColumn(name = "meal_details_id")
     private MealDetails details;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "day_of_eating_id")
+    private DayOfEating day;
 
 }

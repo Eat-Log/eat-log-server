@@ -5,37 +5,30 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "user")
-public class User {
+@Table(name = "daty_of_eating")
+public class DayOfEating{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String email;
+    private LocalDate date;
 
-    private String oktaId;
-
-    @OneToOne(
-            mappedBy = "user",
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL
-    )
-    @JoinColumn(name = "user_details_id")
-    private UserDetails details;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @OneToMany(
-            mappedBy = "user",
+            mappedBy = "day",
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL
     )
-    private Set<DayOfEating> days;
+    private List<Meal> meals;
 }
