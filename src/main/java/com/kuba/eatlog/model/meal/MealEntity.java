@@ -1,34 +1,26 @@
 package com.kuba.eatlog.model.meal;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kuba.eatlog.model.user.UserEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
-@Data
+@Getter
+@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@Table(name = "meal")
+@Table(name = "meals")
 public class MealEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @NotEmpty(message = "You have to provide title.")
     private String title;
-
-    @NotEmpty(message = "You have to provide time of the meal")
     private LocalTime time;
-
-    @NotEmpty(message = "You have to provide date for the meal")
     private LocalDate date;
 
     @OneToOne(
@@ -43,4 +35,15 @@ public class MealEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
+    @JsonIgnore
+    public static MealEntity toNewEntity(MealDto source){
+        return MealEntity.builder()
+                .title(source.getTitle())
+                .time(LocalTime.parse(source.getTitle()))
+                .date(LocalDate.parse(source.getTitle()))
+                .details(source.getDetails())
+                .user(source.getUser())
+                .build();
+
+    }
 }
