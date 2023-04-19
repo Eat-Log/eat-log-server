@@ -1,5 +1,6 @@
-package com.kuba.eatlog.model;
+package com.kuba.eatlog.model.meal;
 
+import com.kuba.eatlog.model.meal.Meal;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

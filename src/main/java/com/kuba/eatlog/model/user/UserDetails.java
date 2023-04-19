@@ -1,4 +1,4 @@
-package com.kuba.eatlog.model;
+package com.kuba.eatlog.model.user;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -1,6 +1,6 @@
 package com.kuba.eatlog.repository;
 
-import com.kuba.eatlog.model.User;
+import com.kuba.eatlog.model.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
