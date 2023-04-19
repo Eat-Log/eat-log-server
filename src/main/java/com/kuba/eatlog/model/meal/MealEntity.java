@@ -1,6 +1,6 @@
 package com.kuba.eatlog.model.meal;
 
-import com.kuba.eatlog.model.user.User;
+import com.kuba.eatlog.model.user.UserEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,18 +17,18 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @Builder
 @Table(name = "meal")
-public class Meal{
+public class MealEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty(message = "Title cannot be empty")
+    @NotEmpty(message = "You have to provide title.")
     private String title;
 
-    @NotEmpty(message = "Time cannot be empty")
+    @NotEmpty(message = "You have to provide time of the meal")
     private LocalTime time;
 
-
+    @NotEmpty(message = "You have to provide date for the meal")
     private LocalDate date;
 
     @OneToOne(
@@ -41,6 +41,6 @@ public class Meal{
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User user;
+    private UserEntity user;
 
 }

@@ -1,6 +1,6 @@
 package com.kuba.eatlog.model.user;
 
-import com.kuba.eatlog.model.meal.Meal;
+import com.kuba.eatlog.model.meal.MealEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "user")
-public class User {
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,5 +36,5 @@ public class User {
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL
     )
-    private List<Meal> meals;
+    private List<MealEntity> meals;
 }

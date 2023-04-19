@@ -1,7 +1,7 @@
 package com.kuba.eatlog.service;
 
 import com.kuba.eatlog.exception.exceptions.EntityNotFoundException;
-import com.kuba.eatlog.model.meal.Meal;
+import com.kuba.eatlog.model.meal.MealEntity;
 import com.kuba.eatlog.repository.MealRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,15 +14,15 @@ public class MealServiceImpl {
 
     private final MealRepository repository;
 
-    public Meal saveMeal(Meal meal) {
+    public MealEntity saveMeal(MealEntity meal) {
         return repository.save(meal);
     }
 
-    public List<Meal> getAllMeals(String email){
+    public List<MealEntity> getAllMeals(String email){
         return repository.findAllForSignedInUser(email);
     }
 
-    public Meal getMealById(Long id){
+    public MealEntity getMealById(Long id){
         return
                 repository.findMealByIdForSignedInUser(id)
                         .orElseThrow(
@@ -34,8 +34,8 @@ public class MealServiceImpl {
         return repository.existsById(id);
     }
 
-    private Meal createMeal(Meal meal){
-         return Meal.builder()
+    private MealEntity createMeal(MealEntity meal){
+         return MealEntity.builder()
                  .title(meal.getTitle())
                  .time(meal.getTime())
                  .date(meal.getDate())

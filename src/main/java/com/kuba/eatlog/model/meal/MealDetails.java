@@ -1,6 +1,5 @@
 package com.kuba.eatlog.model.meal;
 
-import com.kuba.eatlog.model.meal.Meal;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,5 +19,5 @@ public class MealDetails {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "meal_id")
-    private Meal meal;
+    private MealEntity meal;
 }
