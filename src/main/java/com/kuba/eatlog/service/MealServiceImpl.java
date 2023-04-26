@@ -1,47 +1,65 @@
 package com.kuba.eatlog.service;
 
 import com.kuba.eatlog.exception.exceptions.EntityNotFoundException;
+import com.kuba.eatlog.model.meal.MealDto;
 import com.kuba.eatlog.model.meal.MealEntity;
 import com.kuba.eatlog.repository.MealRepository;
+import com.kuba.eatlog.rest.request.MealSearchRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
-public class MealServiceImpl {
+public class MealServiceImpl implements MealService {
 
     private final MealRepository repository;
 
-    public MealEntity saveMeal(MealEntity meal) {
-        return repository.save(meal);
+    @Override
+    public MealDto saveMeal(MealDto mealDto) {
+        return MealDto.from(repository.save(MealEntity.toNewEntity(mealDto)));
     }
 
-    public List<MealEntity> getAllMeals(String email){
-        return repository.findAllForSignedInUser(email);
+    @Override
+    public List<MealDto> findAllMealsForSpecificUserId(Long userId) {
+        return repository.findAllForSignedInUser(userId)
+                .stream()
+                .map(x -> MealDto.from(x))
+                .collect(Collectors.toList());
     }
 
-    public MealEntity getMealById(Long id){
-        return
-                repository.findMealByIdForSignedInUser(id)
-                        .orElseThrow(
-                                () -> new EntityNotFoundException(getClass(), id)
-                        );
+
+    //TODO Implement criteria as you need later
+    @Override
+    public List<MealDto> findByCriteriaForSpecificUserId(MealSearchRequest criteria) {
+        return null;
     }
 
-    private boolean existsById(Long id){
-        return repository.existsById(id);
+    @Override
+    public MealDto findById(Long mealId) {
+        return MealDto.from(repository.findById(mealId)
+                .orElseThrow(() -> new EntityNotFoundException(MealEntity.class, mealId)));
+    }
+    @Override
+    public MealDto updateMeal(MealDto mealDto){
+        return MealDto.from(repository.findById(mealDto.getId()).map(mealEntity -> {
+            mealEntity.setTitle(mealDto.getTitle());
+            mealEntity.setTime(mealDto.getTime());
+            mealEntity.setDate(mealDto.getDate());
+            mealEntity.setDetails(mealDto.getDetails());
+            return mealEntity;
+        }).orElseThrow(() -> new EntityNotFoundException(MealEntity.class, mealDto.getId())));
     }
 
-    private MealEntity createMeal(MealEntity meal){
-         return MealEntity.builder()
-                 .title(meal.getTitle())
-                 .time(meal.getTime())
-                 .date(meal.getDate())
-                 .details(meal.getDetails())
-                 .user(meal.getUser())
-                 .build();
+    @Override
+    public void deleteById(Long mealId) {
+        MealEntity meal = repository.findById(mealId)
+                .orElseThrow(() -> new EntityNotFoundException(MealEntity.class, mealId));
+        repository.delete(meal);
     }
 
 }

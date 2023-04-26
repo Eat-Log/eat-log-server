@@ -1,4 +1,4 @@
-package com.kuba.eatlog.repository;
+package com.kuba.eatlog.rest.request;
 
 import lombok.*;
 

@@ -5,9 +5,7 @@ import com.kuba.eatlog.model.meal.MealDto;
 import lombok.*;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -16,6 +14,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class MealsResponse {
 
+    @Builder.Default
     private List<MealDto> meals = new ArrayList<>();
 
     @JsonIgnore

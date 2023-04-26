@@ -18,7 +18,7 @@ public class MealDto {
     private LocalTime time;
     private LocalDate date;
     private MealDetails details;
-    private UserEntity user;
+    private Long userId;
 
     @JsonIgnore
     public static MealDto from(MealEntity source){
@@ -28,7 +28,7 @@ public class MealDto {
                 .time(source.getTime())
                 .date(source.getDate())
                 .details(source.getDetails())
-                .user(source.getUser())
+                .userId(source.getUser().getId())
                 .build();
     }
 }

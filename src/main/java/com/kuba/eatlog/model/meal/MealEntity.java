@@ -39,10 +39,9 @@ public class MealEntity {
     public static MealEntity toNewEntity(MealDto source){
         return MealEntity.builder()
                 .title(source.getTitle())
-                .time(LocalTime.parse(source.getTitle()))
-                .date(LocalDate.parse(source.getTitle()))
+                .time(source.getTime())
+                .date(source.getDate())
                 .details(source.getDetails())
-                .user(source.getUser())
                 .build();
 
     }
