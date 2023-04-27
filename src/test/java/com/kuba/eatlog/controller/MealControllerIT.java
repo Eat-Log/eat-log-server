@@ -2,14 +2,14 @@ package com.kuba.eatlog.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kuba.eatlog.controller.meal.MealController;
+import com.kuba.eatlog.BaseIT;
 import com.kuba.eatlog.model.meal.MealDetails;
-import com.kuba.eatlog.model.user.UserEntity;
 import com.kuba.eatlog.rest.request.SaveMealRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -23,30 +23,28 @@ import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@AutoConfigureMockMvc
-@SpringBootTest
-public class MealControllerIT {
 
-    @Autowired
-    private MockMvc mockMvc;
+public class MealControllerIT extends BaseIT {
 
-    @Autowired
-    private ObjectMapper objectMapper;
+
     @Test
     public void whenSaveMealRequest_thenCorrectResponse() throws Exception {
         //given
-        String url = "http://localhost:8080" + MEAL + SAVE_MEAL;
-        UserEntity user = new UserEntity();
-        user.setId(2L);
+        String url = BASE_URL + MEAL + SAVE_MEAL;
+
+        int detailsId = 1;
+
         MealDetails details = new MealDetails();
         details.setDetails("3 eggs");
+
+        MealDetails newDetails = new MealDetails();
+        newDetails.setDetails(details.getDetails());
 
         SaveMealRequest request = SaveMealRequest.builder()
                 .title("Breakfast")
                 .time(LocalTime.parse("09:00"))
                 .date(LocalDate.parse("2023-04-19"))
-                .details(details)
-                .user(user)
+                .details(newDetails)
                 .build();
 
         //when
@@ -56,13 +54,33 @@ public class MealControllerIT {
         //then
         result.andExpect(status().isCreated())
                 .andExpect(jsonPath("$.meal.title", is("Breakfast")))
-                .andExpect(jsonPath("$.meal.time", is("09:00")))
+                .andExpect(jsonPath("$.meal.time", is("09:00:00")))
                 .andExpect(jsonPath("$.meal.date", is("2023-04-19")))
-                .andExpect(jsonPath("$.meal.details", is("details")));
+                .andExpect(jsonPath("$.meal.details.id", is(detailsId)))
+                .andExpect(jsonPath("$.meal.details.details", is(details.getDetails())));
 
     }
 
-    private String toJsonString(SaveMealRequest request) throws JsonProcessingException {
-        return objectMapper.writeValueAsString(request);
+    @Test
+    void whenSavePersonRequest_thenBadRequestResponse() throws Exception{
+        //given
+        String url = BASE_URL + MEAL + SAVE_MEAL;
+        HttpStatus expectedStatus = HttpStatus.BAD_REQUEST;
+        Integer expectedErrors = 3;
+
+        var request = new SaveMealRequest();
+
+        //when
+        var result = mockMvc.perform(MockMvcRequestBuilders.post(url).contentType(MediaType.APPLICATION_JSON)
+                .content(toJsonString(request)));
+
+        //then
+        result.andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code", is(expectedStatus.value())))
+                .andExpect(jsonPath("$.error", is(expectedStatus.getReasonPhrase())))
+                .andExpect(jsonPath("$.message.size()", is(expectedErrors)));
+
     }
+
+
 }

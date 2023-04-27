@@ -1,7 +1,6 @@
 package com.kuba.eatlog.model.meal;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.kuba.eatlog.model.user.UserEntity;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -18,7 +17,6 @@ public class MealDto {
     private LocalTime time;
     private LocalDate date;
     private MealDetails details;
-    private Long userId;
 
     @JsonIgnore
     public static MealDto from(MealEntity source){
@@ -28,7 +26,6 @@ public class MealDto {
                 .time(source.getTime())
                 .date(source.getDate())
                 .details(source.getDetails())
-                .userId(source.getUser().getId())
                 .build();
     }
 }
