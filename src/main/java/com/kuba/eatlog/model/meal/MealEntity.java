@@ -1,7 +1,6 @@
 package com.kuba.eatlog.model.meal;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.kuba.eatlog.model.user.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,9 +30,6 @@ public class MealEntity {
     @JoinColumn(name = "meal_details_id")
     private MealDetails details;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private UserEntity user;
 
     @JsonIgnore
     public static MealEntity toNewEntity(MealDto source){
