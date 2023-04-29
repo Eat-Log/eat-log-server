@@ -1,4 +1,4 @@
-package com.kuba.eatlog.rest.request;
+package com.kuba.eatlog.rest.request.meal;
 
 import lombok.*;
 

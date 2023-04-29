@@ -1,42 +1,47 @@
-package com.kuba.eatlog.rest.request;
+package com.kuba.eatlog.rest.request.meal;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kuba.eatlog.model.meal.MealDetails;
+import com.kuba.eatlog.model.meal.MealDetailsDto;
 import com.kuba.eatlog.model.meal.MealDto;
+import com.kuba.eatlog.model.user.UserDto;
+import com.kuba.eatlog.model.user.UserEntity;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateMealRequest {
-    @NotNull(message = "Id is required")
-    private Long id;
+public class SaveMealRequest {
 
-    @NotNull(message = "Title is required")
+    @NotNull(message = "title is required")
     private String title;
 
-    @NotNull(message = "Time is required")
+    @NotNull(message = "time is required")
     private LocalTime time;
 
-    @NotNull(message = "Date is required")
+    @NotNull(message = "date is required")
     private LocalDate date;
 
     private MealDetails details;
 
+    @NotNull(message = "user is required")
+    private UserEntity user;
+
     @JsonIgnore
-    public static MealDto toDto(UpdateMealRequest source){
+    public static MealDto toDto(SaveMealRequest source){
         return MealDto.builder()
-                .id(source.getId())
                 .title(source.getTitle())
                 .time(source.getTime())
                 .date(source.getDate())
-                .details(source.getDetails())
+                .details(MealDetailsDto.from(source.getDetails()))
+                .user(UserDto.from(source.getUser()))
                 .build();
     }
 }

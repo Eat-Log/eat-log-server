@@ -1,5 +1,6 @@
 package com.kuba.eatlog.model.meal;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +20,12 @@ public class MealDetails {
 
     private String details;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "meal_id")
-    private MealEntity meal;
+    @JsonIgnore
+    public static MealDetails toNewEntity(MealDetailsDto source){
+        return MealDetails.builder()
+                .id(source.getId())
+                .details(source.getDetails())
+                .build();
+    }
+
 }
