@@ -1,4 +1,4 @@
-package com.kuba.eatlog.rest.response;
+package com.kuba.eatlog.rest.response.meal;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kuba.eatlog.model.meal.MealDto;

@@ -1,6 +1,8 @@
 package com.kuba.eatlog.model.meal;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.kuba.eatlog.model.user.UserDto;
+import com.kuba.eatlog.model.user.UserEntity;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -16,7 +18,8 @@ public class MealDto {
     private String title;
     private LocalTime time;
     private LocalDate date;
-    private MealDetails details;
+    private MealDetailsDto details;
+    private UserDto user;
 
     @JsonIgnore
     public static MealDto from(MealEntity source){
@@ -25,7 +28,21 @@ public class MealDto {
                 .title(source.getTitle())
                 .time(source.getTime())
                 .date(source.getDate())
-                .details(source.getDetails())
+                .details(MealDetailsDto.from(source.getDetails()))
+                .user(UserDto.from(source.getUser()))
                 .build();
     }
+
+    @JsonIgnore
+    public static MealDto from(MealEntity source, UserDto userDto){
+        return MealDto.builder()
+                .id(source.getId())
+                .title(source.getTitle())
+                .time(source.getTime())
+                .date(source.getDate())
+                .details(MealDetailsDto.from(source.getDetails()))
+                .user(userDto)
+                .build();
+    }
+
 }

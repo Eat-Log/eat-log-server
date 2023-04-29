@@ -15,7 +15,7 @@ public interface MealRepository extends JpaRepository<MealEntity, Long>, JpaSpec
     @Query("""
         SELECT m    \s
         FROM MealEntity m
-        ORDER BY m.time ASC     \s
+        Where m.user.id = :id
     """
     )
     List<MealEntity> findAllForSignedInUser(
