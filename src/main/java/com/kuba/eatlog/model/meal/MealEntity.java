@@ -1,6 +1,7 @@
 package com.kuba.eatlog.model.meal;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.kuba.eatlog.model.dto.MealDto;
 import com.kuba.eatlog.model.user.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;

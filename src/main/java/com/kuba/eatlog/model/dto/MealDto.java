@@ -1,8 +1,7 @@
-package com.kuba.eatlog.model.meal;
+package com.kuba.eatlog.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.kuba.eatlog.model.user.UserDto;
-import com.kuba.eatlog.model.user.UserEntity;
+import com.kuba.eatlog.model.meal.MealEntity;
 import lombok.*;
 
 import java.time.LocalDate;

@@ -1,7 +1,7 @@
 package com.kuba.eatlog.service;
 
 import com.kuba.eatlog.factory.MealFactory;
-import com.kuba.eatlog.model.meal.MealDto;
+import com.kuba.eatlog.model.dto.MealDto;
 import com.kuba.eatlog.repository.MealRepository;
 import com.kuba.eatlog.service.meal.MealServiceImpl;
 import org.junit.jupiter.api.Test;

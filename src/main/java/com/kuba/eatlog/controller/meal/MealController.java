@@ -1,7 +1,7 @@
 package com.kuba.eatlog.controller.meal;
 
 
-import com.kuba.eatlog.model.user.UserDto;
+import com.kuba.eatlog.model.dto.UserDto;
 import com.kuba.eatlog.rest.request.meal.SaveMealRequest;
 import com.kuba.eatlog.rest.response.meal.MealResponse;
 import com.kuba.eatlog.rest.response.meal.MealsResponse;

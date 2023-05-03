@@ -1,6 +1,7 @@
 package com.kuba.eatlog.model.meal;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.kuba.eatlog.model.dto.MealDetailsDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

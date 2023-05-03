@@ -1,6 +1,7 @@
-package com.kuba.eatlog.model.user;
+package com.kuba.eatlog.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.kuba.eatlog.model.user.UserEntity;
 import lombok.*;
 
 @Getter
