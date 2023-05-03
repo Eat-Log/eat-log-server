@@ -1,7 +1,7 @@
 package com.kuba.eatlog.rest.request.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.kuba.eatlog.model.user.UserDto;
+import com.kuba.eatlog.model.dto.UserDto;
 import lombok.*;
 
 import java.util.ArrayList;

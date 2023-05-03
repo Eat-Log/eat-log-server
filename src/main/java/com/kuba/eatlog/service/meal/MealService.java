@@ -1,7 +1,7 @@
 package com.kuba.eatlog.service.meal;
 
-import com.kuba.eatlog.model.meal.MealDto;
-import com.kuba.eatlog.model.user.UserDto;
+import com.kuba.eatlog.model.dto.MealDto;
+import com.kuba.eatlog.model.dto.UserDto;
 import com.kuba.eatlog.rest.request.meal.MealSearchRequest;
 
 import java.util.List;

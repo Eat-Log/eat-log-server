@@ -1,6 +1,7 @@
-package com.kuba.eatlog.model.meal;
+package com.kuba.eatlog.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.kuba.eatlog.model.meal.MealDetails;
 import lombok.*;
 
 @Getter

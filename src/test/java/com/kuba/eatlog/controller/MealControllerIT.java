@@ -2,11 +2,13 @@ package com.kuba.eatlog.controller;
 
 import com.kuba.eatlog.BaseIT;
 import com.kuba.eatlog.model.meal.MealDetails;
+import com.kuba.eatlog.model.user.UserEntity;
 import com.kuba.eatlog.rest.request.meal.SaveMealRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -17,7 +19,7 @@ import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
+@Transactional
 public class MealControllerIT extends BaseIT {
 
 
@@ -28,19 +30,21 @@ public class MealControllerIT extends BaseIT {
 
         int detailsId = 1;
 
-        String mealDetails = "3 eggs";
-
         MealDetails details = new MealDetails();
         details.setDetails("3 eggs");
 
-        MealDetails newDetails = new MealDetails();
-        newDetails.setDetails(details.getDetails());
+
+
+        UserEntity userEntity = new UserEntity();
+        userEntity.setId(1L);
+        userEntity.setSignedInUserName("Kuba");
 
         SaveMealRequest request = SaveMealRequest.builder()
                 .title("Breakfast")
                 .time(LocalTime.parse("09:00"))
                 .date(LocalDate.parse("2023-04-19"))
-                .details(newDetails)
+                .details(details)
+                .user(userEntity)
                 .build();
 
         //when
@@ -54,15 +58,14 @@ public class MealControllerIT extends BaseIT {
                 .andExpect(jsonPath("$.meal.date", is("2023-04-19")))
                 .andExpect(jsonPath("$.meal.details.id", is(detailsId)))
                 .andExpect(jsonPath("$.meal.details.details", is(details.getDetails())));
-
     }
 
     @Test
-    void whenSavePersonRequest_thenBadRequestResponse() throws Exception{
+    void whenSaveMealRequest_thenBadRequestResponse() throws Exception{
         //given
         String url = BASE_URL + MEAL + SAVE_MEAL;
         HttpStatus expectedStatus = HttpStatus.BAD_REQUEST;
-        Integer expectedErrors = 3;
+        Integer expectedErrors = 4;
 
         var request = new SaveMealRequest();
 
@@ -75,8 +78,5 @@ public class MealControllerIT extends BaseIT {
                 .andExpect(jsonPath("$.code", is(expectedStatus.value())))
                 .andExpect(jsonPath("$.error", is(expectedStatus.getReasonPhrase())))
                 .andExpect(jsonPath("$.message.size()", is(expectedErrors)));
-
     }
-
-
 }

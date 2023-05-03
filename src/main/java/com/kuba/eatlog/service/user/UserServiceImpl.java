@@ -1,8 +1,7 @@
 package com.kuba.eatlog.service.user;
 
-import com.kuba.eatlog.model.user.UserDto;
+import com.kuba.eatlog.model.dto.UserDto;
 import com.kuba.eatlog.repository.UserRepository;
-import com.kuba.eatlog.rest.request.user.UsersResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -2,8 +2,8 @@ package com.kuba.eatlog.rest.request.meal;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kuba.eatlog.model.meal.MealDetails;
-import com.kuba.eatlog.model.meal.MealDetailsDto;
-import com.kuba.eatlog.model.meal.MealDto;
+import com.kuba.eatlog.model.dto.MealDetailsDto;
+import com.kuba.eatlog.model.dto.MealDto;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 

@@ -2,24 +2,18 @@ package com.kuba.eatlog.service.meal;
 
 import com.kuba.eatlog.exception.exceptions.EntityNotFoundException;
 import com.kuba.eatlog.model.meal.MealDetails;
-import com.kuba.eatlog.model.meal.MealDetailsDto;
-import com.kuba.eatlog.model.meal.MealDto;
+import com.kuba.eatlog.model.dto.MealDetailsDto;
+import com.kuba.eatlog.model.dto.MealDto;
 import com.kuba.eatlog.model.meal.MealEntity;
-import com.kuba.eatlog.model.user.UserDto;
+import com.kuba.eatlog.model.dto.UserDto;
 import com.kuba.eatlog.repository.MealRepository;
 import com.kuba.eatlog.rest.request.meal.MealSearchRequest;
-import com.kuba.eatlog.service.meal.MealService;
 import lombok.RequiredArgsConstructor;
-import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
