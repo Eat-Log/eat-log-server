@@ -32,7 +32,7 @@ public class MealServiceImpl implements MealService {
     }
 
     @Override
-    public List<MealDto> findAllMealsForSpecificUserId(UserDto userDto) {
+    public List<MealDto> findAllMealsForSpecificUser(UserDto userDto) {
         List<MealDto> meals = repository.findAll()
                 .stream()
                 .map(mealEntity -> MealDto.from(mealEntity, userDto))

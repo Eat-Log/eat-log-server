@@ -1,9 +1,11 @@
 package com.kuba.eatlog.controller;
 
 import com.kuba.eatlog.BaseIT;
+import com.kuba.eatlog.factory.MealFactory;
 import com.kuba.eatlog.model.meal.MealDetails;
 import com.kuba.eatlog.model.user.UserEntity;
 import com.kuba.eatlog.rest.request.meal.SaveMealRequest;
+import com.kuba.eatlog.rest.response.meal.MealResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,6 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import static com.kuba.eatlog.controller.ApiConstraints.*;
+import static com.kuba.eatlog.controller.meal.MealController.FIND_MEAL;
 import static com.kuba.eatlog.controller.meal.MealController.SAVE_MEAL;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -34,9 +37,10 @@ public class MealControllerIT extends BaseIT {
         details.setDetails("3 eggs");
 
 
+        //TODO add saving user first so it will work
 
         UserEntity userEntity = new UserEntity();
-        userEntity.setId(1L);
+//        userEntity.setId(1L);
         userEntity.setSignedInUserName("Kuba");
 
         SaveMealRequest request = SaveMealRequest.builder()
@@ -78,5 +82,21 @@ public class MealControllerIT extends BaseIT {
                 .andExpect(jsonPath("$.code", is(expectedStatus.value())))
                 .andExpect(jsonPath("$.error", is(expectedStatus.getReasonPhrase())))
                 .andExpect(jsonPath("$.message.size()", is(expectedErrors)));
+    }
+
+    @Test
+    void whenFindByIdRequest_thenCorrectResponse() throws Exception {
+        //given
+        String url = BASE_URL + MEAL + FIND_MEAL + "/1";
+
+        var expectedMeal = MealFactory.dummyMealDto().build();
+        var MealResponse = com.kuba.eatlog.rest.response.meal.MealResponse.from(expectedMeal);
+
+
+
+        //when
+        var result = mockMvc.perform(MockMvcRequestBuilders.get(url).contentType(MediaType.APPLICATION_JSON));
+
+        result.andExpect(status().isOk());
     }
 }

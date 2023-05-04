@@ -15,6 +15,7 @@ public class MealFactory {
 
     public static MealEntity.MealEntityBuilder dummyMeal(){
         return MealEntity.builder()
+                .id(1L)
                 .title("Breakfast")
                 .time(LocalTime.parse("09:00"))
                 .date(LocalDate.parse("2023-04-27"))

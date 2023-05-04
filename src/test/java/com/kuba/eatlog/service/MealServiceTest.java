@@ -11,6 +11,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
@@ -26,7 +28,7 @@ public class MealServiceTest {
     private MealServiceImpl mealService;
 
     @Test
-    void whenCorrectMealSaved_thenReturnCorrectMeal(){
+    void whenSaveMeal_thenReturnCorrectMealDto(){
         //given
         var mealDto = MealFactory.dummyMealDto().build();
         var expectedMeal = MealFactory.dummyMeal().build();
@@ -39,5 +41,27 @@ public class MealServiceTest {
         //then
         assertNotNull(result);
         assertEquals(expectedMeal.getId(), result.getId());
+        assertEquals(expectedMeal.getTime(), result.getTime());
+        assertEquals(expectedMeal.getDate(), result.getDate());
+        assertEquals(expectedMeal.getTitle(), result.getTitle());
     }
+
+    //TODO whenSaveMeal_thenThrowException()
+
+    @Test
+    void whenFindById_thenReturnCorrectMeal(){
+        //given
+        var expectedMeal = MealFactory.dummyMeal().build();
+
+        when(mealRepository.findById(expectedMeal.getId())).thenReturn(Optional.of(expectedMeal));
+
+        //when
+        MealDto result = mealService.findById(expectedMeal.getId());
+
+        //then
+        assertNotNull(result);
+        assertEquals(result.getId(), expectedMeal.getId());
+    }
+
+    //TODO whenFinById_thenThrowException()
 }
