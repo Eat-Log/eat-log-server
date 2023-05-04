@@ -10,7 +10,7 @@ public interface MealService {
 
     MealDto findById(Long mealId);
 
-    List<MealDto> findAllMealsForSpecificUserId(UserDto userDto);
+    List<MealDto> findAllMealsForSpecificUser(UserDto userDto);
 
 
     List<MealDto> findByCriteriaForSpecificUserId(MealSearchRequest criteria);

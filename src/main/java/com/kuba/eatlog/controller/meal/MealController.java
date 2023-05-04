@@ -8,6 +8,7 @@ import com.kuba.eatlog.rest.response.meal.MealsResponse;
 import com.kuba.eatlog.service.meal.MealService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +21,9 @@ import static com.kuba.eatlog.controller.ApiConstraints.MEAL;
 @RequiredArgsConstructor
 public class MealController {
 
-    public final static String SAVE_MEAL = "/save";
-    public final static String ALL_MEALS = "/all";
+    public static final String SAVE_MEAL = "/save";
+    public static final String ALL_MEALS = "/all";
+    public static final String FIND_MEAL = "/find";
 
     private final MealService mealService;
 
@@ -29,7 +31,7 @@ public class MealController {
     @GetMapping(ALL_MEALS)
     public ResponseEntity<MealsResponse> getALlMeals(@RequestBody UserDto userDto){
         return new ResponseEntity<>(
-                MealsResponse.from(mealService.findAllMealsForSpecificUserId(userDto)),
+                MealsResponse.from(mealService.findAllMealsForSpecificUser(userDto)),
                 HttpStatus.OK
         );
     }
@@ -43,4 +45,11 @@ public class MealController {
         );
     }
 
+    @GetMapping(FIND_MEAL + "/{mealId}")
+    public ResponseEntity<MealResponse> getMealById(@PathVariable Long mealId){
+        return new ResponseEntity<>(
+                MealResponse.from(mealService.findById(mealId)),
+                HttpStatus.OK
+        );
+    }
 }
