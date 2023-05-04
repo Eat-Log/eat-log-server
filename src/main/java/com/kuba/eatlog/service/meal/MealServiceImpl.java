@@ -54,16 +54,21 @@ public class MealServiceImpl implements MealService {
         return MealDto.from(repository.findById(mealId)
                 .orElseThrow(() -> new EntityNotFoundException(MealEntity.class, mealId)));
     }
-//    @Override
-//    public MealDto updateMeal(MealDto mealDto){
-//        return MealDto.from(repository.findById(mealDto.getId()).map(mealEntity -> {
-//            mealEntity.setTitle(mealDto.getTitle());
-//            mealEntity.setTime(mealDto.getTime());
-//            mealEntity.setDate(mealDto.getDate());
-//            mealEntity.setDetails(mealDto.getDetails());
-//            return mealEntity;
-//        }).orElseThrow(() -> new EntityNotFoundException(MealEntity.class, mealDto.getId())));
-//    }
+
+    @Override
+    public MealDto updateMeal(Long mealId, MealDto mealDto) {
+
+        var mealToUpdate = repository.findById(mealId)
+                .orElseThrow(()->new EntityNotFoundException(MealEntity.class, mealDto.getId()));
+
+        mealToUpdate.setTitle(mealDto.getTitle());
+        mealToUpdate.setTime(mealDto.getTime());
+        mealToUpdate.setDate(mealDto.getDate());
+        mealToUpdate.setDetails(MealDetails.toNewEntity(mealDto.getDetails()));
+
+
+        return MealDto.from(repository.save(mealToUpdate));
+    }
 
     @Override
     public void deleteById(Long mealId) {

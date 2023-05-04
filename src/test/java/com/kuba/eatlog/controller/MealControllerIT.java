@@ -5,7 +5,6 @@ import com.kuba.eatlog.factory.MealFactory;
 import com.kuba.eatlog.model.meal.MealDetails;
 import com.kuba.eatlog.model.user.UserEntity;
 import com.kuba.eatlog.rest.request.meal.SaveMealRequest;
-import com.kuba.eatlog.rest.response.meal.MealResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

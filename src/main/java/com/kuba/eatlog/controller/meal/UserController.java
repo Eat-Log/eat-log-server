@@ -1,6 +1,6 @@
 package com.kuba.eatlog.controller.meal;
 
-import com.kuba.eatlog.rest.request.user.UsersResponse;
+import com.kuba.eatlog.rest.response.user.UsersResponse;
 import com.kuba.eatlog.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

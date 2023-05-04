@@ -25,7 +25,7 @@ public class MealEntity {
     private LocalDate date;
 
     @OneToOne(
-            cascade = CascadeType.ALL,
+            cascade = {CascadeType.ALL},
             fetch = FetchType.LAZY,
             orphanRemoval = true
     )
