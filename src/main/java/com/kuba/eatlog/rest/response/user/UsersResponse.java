@@ -1,4 +1,4 @@
-package com.kuba.eatlog.rest.request.user;
+package com.kuba.eatlog.rest.response.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kuba.eatlog.model.dto.UserDto;

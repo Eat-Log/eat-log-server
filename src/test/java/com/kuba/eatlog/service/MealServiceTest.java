@@ -10,7 +10,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -46,7 +45,7 @@ public class MealServiceTest {
         assertEquals(expectedMeal.getTitle(), result.getTitle());
     }
 
-    //TODO whenSaveMeal_thenThrowException()
+    //TODO whenSaveMeal_thenThrowAlreadyExistException()
 
     @Test
     void whenFindById_thenReturnCorrectMeal(){
@@ -63,5 +62,28 @@ public class MealServiceTest {
         assertEquals(result.getId(), expectedMeal.getId());
     }
 
-    //TODO whenFinById_thenThrowException()
+    //TODO whenFinById_thenThrowNoFoundException()
+
+    @Test
+    void whenUpdateById_thenReturnUpdatedMeal(){
+        //given
+        var mealToUpdate = MealFactory.dummyMeal().build();
+        var updatedMeal = MealFactory.dummyMeal().build();
+
+        when(mealRepository.save(any())).thenReturn(mealToUpdate);
+
+        //when
+        MealDto result = mealService.saveMeal(MealDto.from(mealToUpdate));
+
+        //then
+        assertNotNull(result);
+        assertEquals(updatedMeal.getId(), mealToUpdate.getId());
+        assertEquals(updatedMeal.getTime(), mealToUpdate.getTime());
+        assertEquals(updatedMeal.getDate(), mealToUpdate.getDate());
+        assertEquals(updatedMeal.getDetails(), mealToUpdate.getDetails());
+    }
+
+    //TODO whenUpdateById_thenThrowNoFoundException()
+
+    //TODO whenFindAll_thenGetListForSpecificUser()
 }
